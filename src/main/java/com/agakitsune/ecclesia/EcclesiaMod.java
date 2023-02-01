@@ -18,7 +18,7 @@ public class EcclesiaMod {
 
     public static final CreativeTabs TAB = new EcclesiaCreativeTab();
 
-    private static Logger logger;
+    public static Logger logger;
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) { logger = event.getModLog(); }
