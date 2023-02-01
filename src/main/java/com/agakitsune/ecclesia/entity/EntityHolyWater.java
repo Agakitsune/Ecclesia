@@ -43,16 +43,10 @@ public class EntityHolyWater extends EntityPotion {
     protected void onImpact(RayTraceResult result)
     {
         EcclesiaMod.logger.info("AYO WTF BRO");
-        result.getBlockPos();
+
         if (!this.world.isRemote)
         {
-            ItemStack itemstack = this.getPotion();
-            PotionType potiontype = PotionUtils.getPotionFromItem(itemstack);
-            List<PotionEffect> list = PotionUtils.getEffectsFromStack(itemstack);
-            boolean flag = potiontype == PotionTypes.WATER && list.isEmpty();
-
-            if (result.typeOfHit == RayTraceResult.Type.BLOCK && flag)
-            {
+            if (result.typeOfHit == RayTraceResult.Type.BLOCK) {
                 BlockPos blockpos = result.getBlockPos().offset(result.sideHit);
                 Block hit = this.world.getBlockState(blockpos).getBlock();
                 if (hit != Blocks.AIR) {
@@ -60,9 +54,6 @@ public class EntityHolyWater extends EntityPotion {
                 }
                 world.setBlockState(blockpos, Blocks.FIRE.getDefaultState());
             }
-
-            int i = potiontype.hasInstantEffect() ? 2007 : 2002;
-            this.world.playEvent(i, new BlockPos(this), PotionUtils.getColor(itemstack));
             this.setDead();
         }
     }
